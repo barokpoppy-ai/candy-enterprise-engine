@@ -1,5 +1,6 @@
 # app/__init__.py
 # Flask application factory.
+# Registers the blueprint from routes.py.
 
 from flask import Flask
 from config import Config
@@ -12,5 +13,7 @@ def create_app(config_class=Config):
 
     db.init_app(app)
 
-    # Routes are registered in a later batch.
+    from app.routes import bp
+    app.register_blueprint(bp)
+
     return app

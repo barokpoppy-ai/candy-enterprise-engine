@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>BOQ Items</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Unit</th>
+            <th class="num">Direct Cost</th>
+            <th class="num">Net Rate</th>
+            <th class="num">Final Rate</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.code }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.unit }}</td>
+            <td class="num">{{ "%.2f"|format(item.direct_unit_cost) }}</td>
+            <td class="num">{{ "%.2f"|format(item.net_rate) }}</td>
+            <td class="num"><strong>{{ "%.2f"|format(item.final_rate) }}</strong></td>
+            <td><a class="btn" href="{{ url_for('main.boq_detail', item_id=item.id) }}">View Breakdown</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

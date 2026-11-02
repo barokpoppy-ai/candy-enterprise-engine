@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Candy Engine - Ethiopian BC-1 Estimator</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; margin: 0; background: #f4f6f8; color: #1f2937; }
+        nav { background: #1e3a8a; padding: 1rem 2rem; }
+        nav a { color: white; margin-right: 1.5rem; text-decoration: none; font-weight: 600; }
+        nav a:hover { text-decoration: underline; }
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        table { width: 100%; border-collapse: collapse; background: white; margin: 1rem 0;
+                box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+        th, td { padding: .75rem 1rem; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        th { background: #f9fafb; font-weight: 600; }
+        .num { text-align: right; font-variant-numeric: tabular-nums; }
+        .card { background: white; padding: 1.5rem; border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,.1); margin-bottom: 1rem; }
+        .success { background: #dcfce7; border-left: 4px solid #16a34a;
+                   padding: .75rem 1rem; margin-bottom: 1rem; }
+        .btn { background: #1e3a8a; color: white; padding: .4rem .9rem;
+               border: none; border-radius: 4px; cursor: pointer; text-decoration: none;
+               font-size: .9rem; display: inline-block; }
+        .btn:hover { background: #1e40af; }
+        h1 { color: #1e3a8a; margin-top: 0; }
+        h2 { color: #1e3a8a; font-size: 1.15rem; margin-top: 1.5rem; }
+        input[type="number"] { padding: .4rem; border: 1px solid #d1d5db; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('main.index') }}">Dashboard</a>
+        <a href="{{ url_for('main.materials') }}">Materials</a>
+        <a href="{{ url_for('main.boq') }}">BOQ Items</a>
+    </nav>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="success">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

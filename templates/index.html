@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="card">
+    <strong>Master Resource Library:</strong> {{ material_count }} materials loaded
+</div>
+
+<div class="card">
+    <h2>BOQ Tender Summary</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Unit</th>
+                <th class="num">Direct Cost</th>
+                <th class="num">Net Rate</th>
+                <th class="num">Final Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in summaries %}
+            <tr>
+                <td>{{ s.code }}</td>
+                <td>{{ s.description }}</td>
+                <td>{{ s.unit }}</td>
+                <td class="num">{{ "%.2f"|format(s.direct_unit_cost) }}</td>
+                <td class="num">{{ "%.2f"|format(s.net_rate) }}</td>
+                <td class="num"><strong>{{ "%.2f"|format(s.final_rate) }}</strong></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr style="background:#eef2ff;font-weight:bold;">
+                <td colspan="3">TOTAL</td>
+                <td class="num">{{ "%.2f"|format(total_direct) }}</td>
+                <td class="num">{{ "%.2f"|format(total_net) }}</td>
+                <td class="num">{{ "%.2f"|format(total_final) }}</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}

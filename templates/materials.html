@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Master Materials</h1>
+<p>Change a base price and click Save to trigger the price cascade across all BOQ items.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Unit</th>
+            <th class="num">Base Price</th>
+            <th class="num">Freight</th>
+            <th class="num">Handling</th>
+            <th class="num">Wastage</th>
+            <th class="num">Landed Cost</th>
+            <th>Update Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in materials %}
+        <tr>
+            <td>{{ m.code }}</td>
+            <td>{{ m.description }}</td>
+            <td>{{ m.unit }}</td>
+            <td class="num">{{ "%.2f"|format(m.base_price) }}</td>
+            <td class="num">{{ "%.2f"|format(m.freight) }}</td>
+            <td class="num">{{ "%.2f"|format(m.handling) }}</td>
+            <td class="num">{{ "%.2f"|format(m.wastage_factor) }}</td>
+            <td class="num"><strong>{{ "%.2f"|format(m.landed_cost()) }}</strong></td>
+            <td>
+                <form method="POST" action="{{ url_for('main.update_material', material_id=m.id) }}" style="display:flex;gap:.4rem;">
+                    <input type="number" step="0.01" name="new_price" value="{{ m.base_price }}" style="width:100px;">
+                    <button type="submit" class="btn">Save</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
